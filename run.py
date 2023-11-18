@@ -9,8 +9,8 @@ seed_containers = [Container(0), Container(1)]
 
 simulator = Simulator(
         seed_containers = seed_containers,
-        num_to_generate = 100,
-        generation_time = 30,
+        num_to_generate = 200,
+        generation_time = 10,
         distribution = "UNIFORM",
         job_names = ['a', 'b'],
         input_sizes = [1, 3, 5])

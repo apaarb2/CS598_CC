@@ -14,6 +14,9 @@ class Workload:
         self.workload_duration = duration
         self.time = 0
 
+    def container_start_time(self, t):
+        self.container_start_time = t
+    
     # Called by container.py in tick()
     def is_active(self):
         if self.time >= self.workload_duration:
@@ -22,9 +25,10 @@ class Workload:
 
     # Called by container.py in tick()
     def tick(self):
+        retVal = ()
         if self.time == 0:
-            self.time += 1
-            return self.creation_cpu_cost, self.creation_mem_cost
-
+            retVal = (self.creation_cpu_cost, self.creation_mem_cost)
+        else:
+            retVal = (self.runtime_cpu_cost, self.runtime_mem_cost)
         self.time += 1
-        return self.runtime_cpu_cost, self.runtime_mem_cost
+        return retVal

@@ -50,7 +50,10 @@ class Simulator:
                     randint(0, len(self.job_names) - 1)]
             input_size = self.input_sizes[
                     randint(0, len(self.input_sizes) - 1)]
-            workloads.append(Workload(job, input_size, 9, 15, 0, 0, input_size))
+
+            workloads.append(Workload(
+                job, input_size, 9, 15, 0, 0, input_size))
+
         return workloads
 
     
@@ -101,6 +104,8 @@ class Simulator:
                 if job_name not in job_name_to_num_containers:
                     job_name_to_num_containers[job_name] = 0
                 job_name_to_num_containers[job_name] += 1
+
+            print(len(container.workload_runtimes))
 
         print("-=-=-= end of run =-=-=-\n\
                processed {} workloads in {} time units,\n\
