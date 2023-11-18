@@ -112,17 +112,17 @@ class Simulator:
 
             aggregate_workload_runtimes += container.workload_runtimes
 
-        print("-=-=-= end of run =-=-=-\n\
-               Spec:\n\
-                 * {} workloads -> {} distr over {} time \n\
-                 * with {} unique workloads\n\
-               Result:\n\
-                 * Total time to process = {} time units,\n\
-                 * Containers grew by {} (from {} to {}),\n\
-                 * Distributions of jobs across containers = {}, \n\
-                 * {} workloads' runtime distribution is as follows:\n\
-                 p0, p10, p50, p75, p90, p100\n\
-                 {}, {}, {}, {}, {}, {}\n\
+        print("-=-=-= Summary =-=-=-\n\
+Spec:\n\
+  * {} workloads -> {} distr over {} time \n\
+  * with {} unique workloads\n\
+Result:\n\
+  * Total time to process = {} time units,\n\
+  * Containers grew by {} (from {} to {}),\n\
+  * Distributions of jobs across containers = {}, \n\
+  * {} workloads' runtime distribution is as follows:\n\
+  p0, p10, p50, p75, p90, p100\n\
+  {}, {}, {}, {}, {}, {}\n\
               ".format(
                   self.num_to_generate,
                   self.distribution,
