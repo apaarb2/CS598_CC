@@ -64,7 +64,6 @@ class Simulator:
 
         num_containers_at_start = len(scheduler.get_containers())
 
-        # for time in range(0, time):
         num_workloads_generated = 0
         num_active_workloads = 0
 
