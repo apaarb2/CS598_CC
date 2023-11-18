@@ -80,8 +80,10 @@ class Container:
         self.workloads = processing_workloads
 
 
-        # Print final state for this round
-        print("t_{}:container_{}: jobs={},cpu={},mem={}".format(self.time, self.id, self.get_num_active_workloads(), self.cpu_util_pct, self.mem_util_pct))
+        # # Print final state for this round
+        # print("t_{}:container_{}: jobs={},cpu={},mem={}".format(
+        #     self.time, self.id, self.get_num_active_workloads(), 
+        #     self.cpu_util_pct, self.mem_util_pct))
 
         # move time forward
         self.time += 1  

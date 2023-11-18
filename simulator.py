@@ -2,11 +2,11 @@ from numpy import random
 from random import randint
 from math import ceil
 from workload import Workload
-from container import Container
 from scheduler_interface import SchedulerInterface
 
 class Simulator:
-    def __init__(self, num_to_generate, generation_time, distribution, job_names, input_sizes):
+    def __init__(self, seed_containers, num_to_generate, generation_time, distribution, job_names, input_sizes):
+        self.seed_containers = seed_containers
         self.num_to_generate = num_to_generate
         self.generation_time = generation_time
 
@@ -57,6 +57,11 @@ class Simulator:
     
     def run(self, scheduler):
         time = 0
+
+        scheduler.reset()
+        for container in self.seed_containers:
+            scheduler.add_new_container(container)
+
         num_containers_at_start = len(scheduler.get_containers())
 
         # for time in range(0, time):
@@ -82,18 +87,30 @@ class Simulator:
 
             time += 1
 
-            print("t_{}, #container={}, #workloads={}".format(
-                time, len(scheduler.get_containers()),
-                num_workloads_generated))
+            # print("t_{}, #container={}, #workloads={}".format(
+            #     time, len(scheduler.get_containers()),
+            #     num_workloads_generated))
 
         # Reporting logic below
         # TODO: add more here
-        num_containers_at_end = len(scheduler.get_containers())
+        containers = scheduler.get_containers()
+        num_containers_at_end = len(containers)
+
+        job_name_to_num_containers = {}
+        for container in containers:
+            for job_name in container.get_job_names():
+                if job_name not in job_name_to_num_containers:
+                    job_name_to_num_containers[job_name] = 0
+                job_name_to_num_containers[job_name] += 1
+
         print("-=-=-= end of run =-=-=-\n\
+               processed {} workloads in {} time units,\n\
                containers grew from {} -> {},\n\
-               num workloads generated = {}, \n\
+               job_name_to_num_containers = {}, \n\
               ".format(
+                  num_workloads_generated,
+                  time,
                   num_containers_at_start,
                   num_containers_at_end,
-                  num_workloads_generated))
+                  job_name_to_num_containers))
         pass

@@ -7,9 +7,15 @@ class SchedulerInterface:
             self.containers.append(c)
         self.container_id = len(self.containers)
 
+    # Called by simulator.py before new experiment run
+    def reset(self):
+        self.containers = []
+        self.container_id = 0
+
     # Called by simulator.py for new container turn-up
     def add_new_container(self, container):
         self.containers.append(container)
+        self.container_id += 1
 
     # Called by simulator.py to mimic container failure
     def remove_container(self, container_id):
