@@ -3,6 +3,7 @@ from scheduler_interface import SchedulerInterface
 class SchedulerRoundRobin(SchedulerInterface):
     def __init__(self, containers):
         super().__init__(containers)
+        self.name = "round_robin"
         self.idx = 0
 
     def reset_implementation(self):

@@ -112,7 +112,7 @@ class Simulator:
 
             aggregate_workload_runtimes += container.workload_runtimes
 
-        print("-=-=-= Summary =-=-=-\n\
+        print("-=-=-= Summary for {} =-=-=-\n\
 Spec:\n\
   * {} workloads -> {} distr over {} time \n\
   * with {} unique workloads\n\
@@ -124,6 +124,7 @@ Result:\n\
   p0, p10, p50, p75, p90, p100\n\
   {}, {}, {}, {}, {}, {}\n\
               ".format(
+                  scheduler.name,
                   self.num_to_generate,
                   self.distribution,
                   self.generation_time,

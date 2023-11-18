@@ -4,6 +4,7 @@ from random import choice
 class SchedulerCCC(SchedulerInterface):
     def __init__(self, containers):
         super().__init__(containers)
+        self.name = "CCC"
         self.container_load = {}  # To keep track of container load
 
     def reset_implementation(self):

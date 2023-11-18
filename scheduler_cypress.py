@@ -3,6 +3,7 @@ from scheduler_interface import SchedulerInterface
 class SchedulerCypress(SchedulerInterface):
     def __init__(self, containers):
         super().__init__(containers)
+        self.name = "cypress"
         pass
 
     def reset_implementation(self):

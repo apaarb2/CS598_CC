@@ -2,6 +2,7 @@ from container import Container
 
 class SchedulerInterface:
     def __init__(self, containers):
+        self.name = "Interface"
         pass
 
     # Called by simulator.py before new experiment run

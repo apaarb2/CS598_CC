@@ -1,31 +1,28 @@
 # CS598_CC
 
-These are the leads to efficiently navigate us through this project. Each member will lead one area:
+## To Run:
+`python run.py`
 
-1. Research and Development Lead (Apaar Bhatnagar):
+## To define experiments:
+Create a new simulator in `run.py`
+For each desired scheduler, call `run` on the created simulator
 
-- In charge of managing the project's overall development and making sure that its many components work together.
-- Pay attention to comprehending the fundamental components of the Cypress and Hermod frameworks and how they can be used to great effect.
-- Integrate the performance monitoring and optimization module with the scheduling policy engine.
-- Make sure that the architecture is compatible with widely used serverless solutions by integrating it with them.
+## Simulator Metrics Tracked
+-> overall simulation latency (helps measure overhead costs incurred such as new job pin up and new container spin up)
+-> containers consumed (helps measure aggregate system cost)
+-> containers consumer per job (helps measure per-job costs)
+-> workload time distribution (helps observe long tail latencies of workloads)
 
-
-
-2. System Design and Implementation Lead (Abhishek Srikanth):
-
-- In charge of creating the system's architecture and putting key components—such as the container management layer and the input size profiling module—into place.
-- Put your attention on creating the input size profiling module and use empirical models to allocate resources according to input sizes.
-- In order to dynamically allocate containers based on input size distributions and workload characteristics, design and build the container management layer.
-
-
-3. Testing and Evaluation Lead (Yun Hui Xu):
-
-- In charge of putting the system through testing and assessing its performance in relation to predetermined goals and criteria.
-- Concentrate on establishing test settings in order to evaluate the integrated scheduling methodology's effectiveness.
-- Keep an eye on critical performance metrics including throughput, function slowness, and cold start occurrences to make sure the system satisfies SLO and performance requirements.
-- By assigning each team member a specific duty, the suggested system architecture will be developed, implemented, and evaluated, and each member will be responsible for a certain area of the project. Team members must collaborate and communicate on a regular basis to successfully integrate and finish the project.
-
-
-
-
+## Files
+README.md : This file
+run.py    : Defines all experiments and runs them
+simulator.py : Core simulator that orchestrates containers, workloads over time intervals
+__init__.py  : empty file (for imports)
+container.py : Mimics a container that is capable of housing multiple types of jobs on demand
+workload.py  : Defines the specifications of a workload and how it should be simulated
+scheduler_interface.py  : Base class that defines how a scheduler is to be implemented along with common helpers
+scheduler_ccc.py        : New solution implemented for Cloud Computing Capstone (CCC) class
+scheduler_cypress.py    : Implementation of cypress paper
+scheduler_hermod.py     : Implementation of hermod paper
+scheduler_roundrobin.py : Naive round robin based scheduler
 
