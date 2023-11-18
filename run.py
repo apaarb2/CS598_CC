@@ -7,5 +7,11 @@ from scheduler_ccc import SchedulerCCC
 
 seed_containers = [Container(0), Container(1)]
 
-simulator = Simulator(100, 30)
+simulator = Simulator(
+        num_to_generate = 100,
+        generation_time = 30,
+        distribution = "UNIFORM",
+        job_names = ['a', 'b'],
+        input_sizes = [1, 3, 5])
+
 simulator.run(SchedulerRoundRobin(seed_containers))
