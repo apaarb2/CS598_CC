@@ -19,7 +19,7 @@ class Container:
         self.workload_runtimes = []
 
     def get_id(self):
-        return self.get_id()
+        return self.id
 
     def get_job_names(self):
         return self.job_names

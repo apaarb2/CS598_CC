@@ -16,3 +16,7 @@ simulator = Simulator(
         input_sizes = [1, 3, 5])
 
 simulator.run(SchedulerRoundRobin([]))
+simulator.run(SchedulerRoundRobin([]))
+simulator.run(SchedulerRoundRobin([]))
+print("---")
+simulator.run(SchedulerCCC([]))

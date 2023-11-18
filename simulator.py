@@ -64,6 +64,8 @@ class Simulator:
         scheduler.reset_implementation()
         scheduler.reset()
         for container in self.seed_containers:
+            _id = container.get_id()
+            container.__init__(_id) # reset the container with old id
             scheduler.add_new_container(container)
 
         num_containers_at_start = len(scheduler.get_containers())
