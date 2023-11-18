@@ -1,3 +1,4 @@
+from copy import deepcopy
 from numpy import random, percentile
 from random import randint
 from math import ceil
@@ -5,10 +6,17 @@ from workload import Workload
 from scheduler_interface import SchedulerInterface
 
 class Simulator:
-    def __init__(self, seed_containers, num_to_generate, generation_time, distribution, job_names, input_sizes):
+    def __init__(
+            self,
+            seed_containers,
+            num_to_generate,
+            generation_time,
+            distribution,
+            workload_profiles):
         self.seed_containers = seed_containers
         self.num_to_generate = num_to_generate
         self.generation_time = generation_time
+        self.workload_profiles = workload_profiles
 
         self.batches = []
 
@@ -35,8 +43,6 @@ class Simulator:
         else:
             raise Exception("unimplemented")
 
-        self.job_names = job_names
-        self.input_sizes = input_sizes
         pass
 
     def gen_workloads(self, time):
@@ -47,13 +53,9 @@ class Simulator:
         
         workloads = []
         for i in range(0, batch_size):
-            job = self.job_names[
-                    randint(0, len(self.job_names) - 1)]
-            input_size = self.input_sizes[
-                    randint(0, len(self.input_sizes) - 1)]
-
-            workloads.append(Workload(
-                job, input_size, 9, 15, 0, 0, input_size))
+            workload = deepcopy(self.workload_profiles[
+                randint(0, len(self.workload_profiles) - 1)])
+            workloads.append(workload)
 
         return workloads
 
@@ -111,19 +113,21 @@ class Simulator:
             aggregate_workload_runtimes += container.workload_runtimes
 
         print("-=-=-= end of run =-=-=-\n\
-               To create {} workloads over {} time in {} distribution where:\n\
-                   job names = {}, input_sizes = {}\n\
-               processed {} workloads in {} time units,\n\
-               containers grew by {} (from {} -> {}),\n\
-               job_name_to_num_containers = {}, \n\
-               {} workload runtime distribution p0: {}, p10: {}, p50: {}, p75: {}, p90: {}, p100: {}\n\
+               Spec:\n\
+                 * {} workloads -> {} distr over {} time \n\
+                 * with {} unique workloads\n\
+               Result:\n\
+                 * Total time to process = {} time units,\n\
+                 * Containers grew by {} (from {} to {}),\n\
+                 * Distributions of jobs across containers = {}, \n\
+                 * {} workloads' runtime distribution is as follows:\n\
+                 p0, p10, p50, p75, p90, p100\n\
+                 {}, {}, {}, {}, {}, {}\n\
               ".format(
                   self.num_to_generate,
-                  self.generation_time,
                   self.distribution,
-                  self.job_names,
-                  self.input_sizes,
-                  num_workloads_generated,
+                  self.generation_time,
+                  len(self.workload_profiles),
                   time,
                   num_containers_at_end - num_containers_at_start,
                   num_containers_at_start,
