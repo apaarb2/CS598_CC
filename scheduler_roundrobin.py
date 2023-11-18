@@ -17,5 +17,5 @@ class SchedulerRoundRobin(SchedulerInterface):
             if self.containers[self.idx].process(workload):
                 return  # container accepted process request
 
-        print("ERROR: no containers, requested new one")
+        # print("ERROR: no containers, requested new one")
         self.request_new_container()

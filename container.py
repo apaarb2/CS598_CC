@@ -3,7 +3,7 @@ from workload import Workload
 class Container:
     def __init__(self, container_id):
         self.id = container_id
-        print("Creating new container with id = ", self.id)
+        # print("Creating new container with id = ", self.id)
         self.cpu_limit = 100
         self.mem_limit = 100
 
@@ -70,7 +70,7 @@ class Container:
                 if workload.job_name in new_job_names:
                     continue
 
-                print("creating job: ", workload.job_name, " on container ", self.id)
+                # print("creating job: ", workload.job_name, " on container ", self.id)
                 cpu_cost += self.job_creation_cpu_cost
                 mem_cost += self.job_creation_mem_cost
                 new_job_names.append(workload.job_name)
@@ -104,10 +104,10 @@ class Container:
 
 
         # # Print final state for this round
-        print("t_{}:container_{}: active_jobs={},done_jobs={},cpu={},mem={}".format(
-            self.time, self.id, self.get_num_active_workloads(), 
-            len(self.workload_runtimes),
-            self.cpu_util_pct, self.mem_util_pct))
+        # print("t_{}:container_{}: active_jobs={},done_jobs={},cpu={},mem={}".format(
+        #     self.time, self.id, self.get_num_active_workloads(), 
+        #     len(self.workload_runtimes),
+        #     self.cpu_util_pct, self.mem_util_pct))
 
         # move time forward
         self.time += 1  
