@@ -43,7 +43,6 @@ class Simulator:
             return []
 
         batch_size = self.batches[time]
-            # ceil(self.num_to_generate / self.generation_time)
         
         workloads = []
         for i in range(0, batch_size):
@@ -58,6 +57,7 @@ class Simulator:
     def run(self, scheduler):
         time = 0
 
+        scheduler.reset_implementation()
         scheduler.reset()
         for container in self.seed_containers:
             scheduler.add_new_container(container)

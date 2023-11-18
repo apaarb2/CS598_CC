@@ -4,8 +4,10 @@ from scheduler_interface import SchedulerInterface
 class SchedulerCCC(SchedulerInterface):
     def __init__(self, containers):
         super().__init__(containers)
-        self.idx = 0
+        pass
 
+    def reset_implementation(self):
+        pass
 
     def process(self, workload):
         # NOTE: call self.request_new_container() if there are

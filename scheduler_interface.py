@@ -2,10 +2,12 @@ from container import Container
 
 class SchedulerInterface:
     def __init__(self, containers):
-        self.containers = []
-        for c in containers:
-            self.containers.append(c)
-        self.container_id = len(self.containers)
+        pass
+
+    # Called by simulator.py before new experiment run
+    # For the implementation to clear any existing state
+    def reset_implementation(self):
+        raise Exception("must override") 
 
     # Called by simulator.py before new experiment run
     def reset(self):

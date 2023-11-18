@@ -5,6 +5,9 @@ class SchedulerRoundRobin(SchedulerInterface):
         super().__init__(containers)
         self.idx = 0
 
+    def reset_implementation(self):
+        self.idx = 0
+
     def process(self, workload):
 
         for i in range(0, len(self.containers)):
