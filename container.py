@@ -77,7 +77,7 @@ class Container:
         self.mem_util_pct = 100 * mem_cost / self.mem_limit
 
         # Update workloads to only contain active ones
-        self.worloads = processing_workloads
+        self.workloads = processing_workloads
 
 
         # Print final state for this round

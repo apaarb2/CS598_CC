@@ -7,5 +7,5 @@ from scheduler_ccc import SchedulerCCC
 
 seed_containers = [Container(0), Container(1)]
 
-simulator = Simulator(30)
+simulator = Simulator(100, 30)
 simulator.run(SchedulerRoundRobin(seed_containers))
