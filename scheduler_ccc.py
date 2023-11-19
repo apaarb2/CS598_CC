@@ -26,19 +26,22 @@ class SchedulerCCC(SchedulerInterface):
             choice(self.containers).process(workload)
 
     def select_container(self, workload):
-        # Implementing a strategy that merges Hermod and Cypress approaches
         # Step 1: Prefer containers with the workload already present
-        # Step 2: If not found, use containers with least load considering input size
-
         for container in self.containers:
-            if workload.job_name in container.get_job_names():
+            if workload.job_name in container.get_job_names() and not container.is_overloaded():
                 return container
 
-        # Calculate load considering the input size (Cypress approach)
-        # This is a placeholder for the actual logic, which should consider the workload's input size
-        for container in self.containers:
-            self.container_load[container.get_id()] = container.get_num_active_workloads()
+        # Step 2: Use containers with least load considering input size
+        # Update container_load to consider both number of workloads and their input sizes
+        self.update_container_loads(workload)
 
-        # Select the container with the least load
+        # Select the container with the least load that can handle the workload
         least_loaded_container = min(self.container_load, key=self.container_load.get)
         return next(container for container in self.containers if container.get_id() == least_loaded_container)
+
+    def update_container_loads(self, new_workload):
+        for container in self.containers:
+            total_input_size = sum(w.input_size for w in container.workloads)
+            # Load calculation can be adjusted based on how you want to weigh input size
+            load = total_input_size + new_workload.input_size
+            self.container_load[container.get_id()] = load
