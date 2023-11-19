@@ -42,7 +42,13 @@ e_exp = Simulator(
 # TODO: Include other schedulers
 e_uniform.run(SchedulerRoundRobin([]))
 e_uniform.run(SchedulerCCC([]))
+e_uniform.run(SchedulerHermod([]))
+e_uniform.run(SchedulerCypress([]))
 e_normal.run(SchedulerRoundRobin([]))
 e_normal.run(SchedulerCCC([]))
+e_normal.run(SchedulerHermod([]))
+e_normal.run(SchedulerCypress([]))
 e_exp.run(SchedulerRoundRobin([]))
 e_exp.run(SchedulerCCC([]))
+e_exp.run(SchedulerHermod([]))
+e_exp.run(SchedulerCypress([]))

@@ -9,7 +9,8 @@ class Container:
 
         self.job_creation_cpu_cost = 10
         self.job_creation_mem_cost = 10
-
+        
+        self.cores = 1
         self.time = 0
         self.cpu_util_pct = 0  # cpu utilization %
         self.mem_util_pct = 0  # mem utilization %
@@ -23,6 +24,9 @@ class Container:
 
     def get_job_names(self):
         return self.job_names
+    
+    def get_cores(self):
+        return self.cores
 
     # called by process() in the scheduler implementation
     def process(self, workload):
@@ -32,7 +36,7 @@ class Container:
         self.workloads.append(workload)
 
         # -1 since container will start processing only on tick
-        workload.container_start_time(self.time - 1)
+        workload.set_container_start_time(self.time - 1)
         return True
 
     def get_container_uptime(self):

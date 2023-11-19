@@ -14,7 +14,7 @@ class Workload:
         self.workload_duration = duration
         self.time = 0
 
-    def container_start_time(self, t):
+    def set_container_start_time(self, t):
         self.container_start_time = t
     
     # Called by container.py in tick()
