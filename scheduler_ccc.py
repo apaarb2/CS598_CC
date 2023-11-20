@@ -12,18 +12,21 @@ class SchedulerCCC(SchedulerInterface):
         self.container_load = {}
 
     def process(self, workload):
-        # If no containers are available, request a new one
         if not self.containers:
             self.request_new_container()
 
-        # Container selection strategy
         selected_container = self.select_container(workload)
 
-        # Process the workload in the selected container
         if not selected_container.process(workload):
-            # If the container is overloaded, request a new one and retry
+            # Try processing with other containers
+            for container in self.containers:
+                if container != selected_container and container.process(workload):
+                    return  # Successfully processed with an alternate container
+
+            # If all containers are unable to process, request a new one
             self.request_new_container()
-            choice(self.containers).process(workload)
+            self.containers[-1].process(workload)  # Process workload with the newly created container
+
 
     def select_container(self, workload):
         # Step 1: Prefer containers with the workload already present
