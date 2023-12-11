@@ -1,5 +1,5 @@
 from scheduler_interface import SchedulerInterface
-from random import choice
+
 
 class SchedulerCCC(SchedulerInterface):
     def __init__(self, containers):
@@ -8,7 +8,6 @@ class SchedulerCCC(SchedulerInterface):
         self.container_load = {}  # To keep track of container load
 
     def reset_implementation(self):
-        # Reset the state for a new experiment
         self.container_load = {}
 
     def process(self, workload):
@@ -27,7 +26,6 @@ class SchedulerCCC(SchedulerInterface):
             self.request_new_container()
             self.containers[-1].process(workload)  # Process workload with the newly created container
 
-
     def select_container(self, workload):
         # Step 1: Prefer containers with the workload already present
         for container in self.containers:
@@ -35,7 +33,6 @@ class SchedulerCCC(SchedulerInterface):
                 return container
 
         # Step 2: Use containers with least load considering input size
-        # Update container_load to consider both number of workloads and their input sizes
         self.update_container_loads(workload)
 
         # Select the container with the least load that can handle the workload
@@ -44,7 +41,9 @@ class SchedulerCCC(SchedulerInterface):
 
     def update_container_loads(self, new_workload):
         for container in self.containers:
+            total_workload_duration = sum(w.workload_duration for w in container.workloads)
             total_input_size = sum(w.input_size for w in container.workloads)
-            # Load calculation can be adjusted based on how you want to weigh input size
-            load = total_input_size + new_workload.input_size
+
+            # Adjusted load calculation considering both workload duration and input size
+            load = total_workload_duration + total_input_size + new_workload.input_size
             self.container_load[container.get_id()] = load
